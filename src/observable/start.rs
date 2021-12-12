@@ -1,5 +1,22 @@
 use crate::{impl_local_shared_both, prelude::*};
 
+/// Creates an observable that takes in a closure and emits the return value of
+/// that closure.
+///
+/// # Arguments
+///
+/// * `func` - The closure which return value will be emitted.
+///
+/// # Example
+/// ```
+/// use rxrust::prelude::*;
+///
+/// observable::start(|| 123).subscribe_all(
+///   |n| println!("{}", n),
+///   |_| {},
+///   || println!("completed")
+/// );
+/// ```
 pub fn start<Item>(
   func: impl FnOnce() -> Item + 'static,
 ) -> StartObservable<Item> {
@@ -33,6 +50,15 @@ mod tests {
   use crate::prelude::*;
   use std::sync::atomic::{AtomicBool, AtomicI32, Ordering};
   use std::sync::Arc;
+
+  #[test]
+  fn a() {
+    observable::start(|| 123).subscribe_all(
+      |n| println!("{}", n),
+      |_| {},
+      || println!("completed"),
+    );
+  }
 
   #[test]
   fn it_shall_emit_closure_value() {
