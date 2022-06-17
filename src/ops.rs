@@ -26,6 +26,7 @@ pub mod skip_until;
 pub mod skip_while;
 pub mod start_with;
 pub mod subscribe_on;
+pub mod switch;
 pub mod take;
 pub mod take_last;
 pub mod take_until;

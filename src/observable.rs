@@ -76,6 +76,7 @@ use ops::{
   skip_while::SkipWhileOp,
   start_with::StartWithOp,
   subscribe_on::SubscribeOnOP,
+  switch::SwitchOp,
   take::TakeOp,
   take_last::TakeLastOp,
   take_until::TakeUntilOp,
@@ -1192,6 +1193,13 @@ pub trait Observable: Sized {
     SubscribeOnOP {
       source: self,
       scheduler,
+    }
+  }
+
+  #[inline]
+  fn switch(self) -> SwitchOp<Self> {
+    SwitchOp {
+      source: self,
     }
   }
 
